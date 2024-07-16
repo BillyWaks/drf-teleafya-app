@@ -7,6 +7,9 @@ from django.contrib.auth.models import (PermissionsMixin,UserManager,AbstractBas
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.contrib.auth.hashers import make_password
+import jwt
+from datetime import datetime, timedelta
+from django.conf import settings
 
 # add new properties access_token, is_email_verified
 # Use email and password instead of username/password
@@ -106,9 +109,14 @@ class User(AbstractBaseUser,PermissionsMixin,TrackingModel):
     objects = MyUserManager()
 
     EMAIL_FIELD = "email"
-    USERNAME_FIELD = "username"
-    REQUIRED_FIELDS = ["email"]
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username"]
 
     @property #mark to show token is a property of the user
     def token(self):
-        return ''
+        token=jwt.encode(
+            {'username': self.username,'email': self.email,
+                          'exp':datetime.now() + timedelta(hours=24)},
+                          settings.SECRET_KEY,algorithm='HS256')
+        
+        return token
