@@ -4,11 +4,13 @@ from teleafya.serializers import teleafyaSerializer, teleafya
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import permissions, filters
+from teleafya.pagination import CustomPageNumberPagination
 
 
 # Create your views here.
 class teleafyaAPIView(ListCreateAPIView):
     serializer_class = teleafyaSerializer
+    pagination_class = CustomPageNumberPagination
     permission_classes = (IsAuthenticated,)
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, 
                        filters.OrderingFilter]
