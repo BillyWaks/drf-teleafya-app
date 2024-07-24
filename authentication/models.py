@@ -109,8 +109,8 @@ class User(AbstractBaseUser,PermissionsMixin,TrackingModel):
     objects = MyUserManager()
 
     EMAIL_FIELD = "email"
-    USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username"]
+    USERNAME_FIELD = "username"
+    REQUIRED_FIELDS = ["email"]
 
     @property #mark to show token is a property of the user
     def token(self):
