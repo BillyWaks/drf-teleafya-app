@@ -51,8 +51,18 @@ INSTALLED_APPS = [
     'drf_yasg',
     'authentication',
     'django_filters',
-    'teleafya',
+    'appointments',
 ]
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
+}
 
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
@@ -104,7 +114,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'teleafya',
         'USER': 'postgres',
-        'PASSWORD': 'password@123',
+        'PASSWORD': os.environ.get('PASSWORD'),
         'HOST': 'localhost',
         'PORT': '5433',
     }
