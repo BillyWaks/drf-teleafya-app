@@ -16,7 +16,7 @@ class BookAppointmentListAPIView(ListCreateAPIView):
     serializer_class = BookAppointmentSerializer
     queryset = BookAppointment.objects.all()
     # pagination_class = CustomPageNumberPagination
-    permissions = (permissions.IsAuthenticated,)
+    permissions_classes = (permissions.IsAuthenticated,)
     # filter_backends = [DjangoFilterBackend, filters.SearchFilter, 
     #                    filters.OrderingFilter]
 
@@ -32,7 +32,7 @@ class BookAppointmentListAPIView(ListCreateAPIView):
 
 class BookAppointmentDetailAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = BookAppointmentSerializer
-    permissions = (permissions.IsAuthenticated, IsOwner)
+    permissions_classes = (permissions.IsAuthenticated, IsOwner)
     lookup_field = "id"
     
     def perform_create(self, serializer):
@@ -46,7 +46,7 @@ class BillingInformationListAPIView(ListCreateAPIView):
     serializer_class = BillingInformationSerializer
     queryset = BillingInformation.objects.all()
     # pagination_class = CustomPageNumberPagination
-    permissions = (permissions.IsAuthenticated,)
+    permissions_classes = (permissions.IsAuthenticated,)
     # filter_backends = [DjangoFilterBackend, filters.SearchFilter, 
     #                    filters.OrderingFilter]
 
@@ -62,7 +62,7 @@ class BillingInformationListAPIView(ListCreateAPIView):
 
 class BillingInformationDetailAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = BillingInformationSerializer
-    permissions = (permissions.IsAuthenticated, IsOwner)
+    permissions_classes = (permissions.IsAuthenticated, IsOwner)
     lookup_field = "id"
     
     def perform_create(self, serializer):
@@ -76,7 +76,7 @@ class AppointmentListAPIView(ListCreateAPIView):
     serializer_class = AppointmentSerializer
     queryset = Appointment.objects.all()
     # pagination_class = CustomPageNumberPagination
-    permissions = (permissions.IsAuthenticated,)
+    permissions_classes = (permissions.IsAuthenticated,)
     # filter_backends = [DjangoFilterBackend, filters.SearchFilter, 
     #                    filters.OrderingFilter]
 
@@ -92,7 +92,7 @@ class AppointmentListAPIView(ListCreateAPIView):
 
 class AppointmentDetailAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = AppointmentSerializer
-    permissions = (permissions.IsAuthenticated, IsOwner)
+    permissions_classes = (permissions.IsAuthenticated, IsOwner)
     lookup_field = "id"
     
     def perform_create(self, serializer):
