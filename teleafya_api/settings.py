@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'authentication',
     'django_filters',
     'appointments',
+    'billing',
+    'payment_status',
 ]
 
 SWAGGER_SETTINGS = {

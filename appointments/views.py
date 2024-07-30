@@ -3,7 +3,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 # CreateAPIView, ListAPIView, 
 # from teleafya.serializers import teleafyaSerializer, teleafya
 # from rest_framework.permissions import IsAuthenticated
-# from django_filters.rest_framework import DjangoFilterBackend
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import permissions, filters
 from appointments.pagination import CustomPageNumberPagination
 from .serializers import BookAppointmentSerializer
@@ -22,10 +22,10 @@ class BookAppointmentListAPIView(ListCreateAPIView):
     
     # Uncomment if you want to use pagination, filtering, searching, and ordering
     pagination_class = CustomPageNumberPagination
-    # filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    # filterset_fields = ['book_for','id_number','service','appointment_type','age','gender','area_of_residence']
-    # search_fields = ['book_for','id_number','service','appointment_type','age','gender','area_of_residence']
-    # ordering_fields = ['book_for','id_number','service','appointment_type','age','gender','area_of_residence']
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['book_for','id_number','service','appointment_type','age','gender','area_of_residence']
+    search_fields = ['book_for','id_number','service','appointment_type','age','gender','area_of_residence']
+    ordering_fields = ['book_for','id_number','service','appointment_type','age','gender','area_of_residence']
 
     def perform_create(self, serializer):
         return serializer.save(owner=self.request.user)
