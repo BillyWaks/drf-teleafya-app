@@ -15,8 +15,8 @@ import os
 import datetime
 # Configure Django App for Heroku.
 import django_heroku
-import myEnvVal
-myEnvVal.setVar()
+# import myEnvVal
+# myEnvVal.setVar()
 # from dotenv import load_dotenv
 # # Load environment variables from .env file
 # load_dotenv()
