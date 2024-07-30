@@ -112,7 +112,7 @@ DATABASES = {
         'NAME': 'teleafya',
         'USER': 'postgres',
         'PASSWORD': os.environ.get('PASSWORD'),
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '5433',
     }
 }
