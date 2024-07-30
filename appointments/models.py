@@ -40,10 +40,10 @@ class BookAppointment(models.Model):
     ]
 
     book_for = models.CharField(max_length=6, choices=BOOK_FOR_CHOICES)
-    id_number = models.BigIntegerField(validators=[validate_id_number])
+    id_number = models.PositiveIntegerField(validators=[validate_id_number])
     service = models.CharField(max_length=30, choices=SERVICE_CHOICES)
     appointment_type = models.CharField(max_length=8, choices=APPOINTMENT_TYPE_CHOICES)
-    age = models.BigIntegerField(validators=[validate_age])
+    age = models.PositiveIntegerField(validators=[validate_age])
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES)
     area_of_residence = models.TextField()
     status = models.CharField(max_length=12, choices=STATUS_CHOICES)
