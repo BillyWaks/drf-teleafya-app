@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import datetime
+# Configure Django App for Heroku.
+import django_heroku
 import myEnvVal
 myEnvVal.setVar()
 # from dotenv import load_dotenv
@@ -208,3 +210,6 @@ EMAIL_PORT = 587
 EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+
+django_heroku.settings(locals())
