@@ -127,14 +127,14 @@ WSGI_APPLICATION = 'teleafya_api.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': { dj_database_url.config(default=config('DATABASE_URL'))
+    'default':  dj_database_url.config(default=config('DATABASE_URL'))
         # 'ENGINE': 'django.db.backends.postgresql',
         # 'NAME': 'teleafya',
         # 'USER': 'postgres',
         # 'PASSWORD': env('PASSWORD'),
         # 'HOST': 'localhost',
         # 'PORT': '5433',
-    }
+    
 }
 
 
