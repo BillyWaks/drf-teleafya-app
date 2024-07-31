@@ -6,6 +6,8 @@ import django_heroku
 import dj_database_url
 from decouple import config
 
+
+# Initialize environment variables
 env = environ.Env(
     DEBUG=(bool, False)
 )
@@ -16,16 +18,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Take environment variables from .env file
 environ.Env.read_env()
 
-# False if not in os.environ because of casting above
+# Debug mode
 DEBUG = env('DEBUG')
 
-# Raises Django's ImproperlyConfigured exception if SECRET_KEY not in os.environ
+# Secret key
 SECRET_KEY = env('SECRET_KEY')
 
-ALLOWED_HOSTS = []
+# Allowed hosts
+ALLOWED_HOSTS = ['your-heroku-app.herokuapp.com']
 
+# Custom user model
 AUTH_USER_MODEL = "authentication.User"
 
+# Installed apps
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,6 +49,7 @@ INSTALLED_APPS = [
     'payment_status',
 ]
 
+# Swagger settings
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
         'Bearer': {
@@ -54,6 +60,7 @@ SWAGGER_SETTINGS = {
     }
 }
 
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -66,8 +73,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# URL configuration
 ROOT_URLCONF = 'teleafya_api.urls'
 
+# Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -84,28 +93,22 @@ TEMPLATES = [
     },
 ]
 
+# WSGI application
 WSGI_APPLICATION = 'teleafya_api.wsgi.application'
 
-# Database
+# Database configuration
 DATABASES = {
     'default': dj_database_url.config(default=config('DATABASE_URL'))
 }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
+# REST framework settings
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
@@ -116,23 +119,30 @@ REST_FRAMEWORK = {
     ),
 }
 
+# Simple JWT settings
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=10),
     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1),
 }
 
+# Localization
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+# CORS settings
 CORS_ALLOW_ALL_ORIGINS = True
 
+# Static files
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+# Default auto field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Email settings
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
@@ -141,4 +151,21 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
+# Logging configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+}
+
+# Heroku settings
 django_heroku.settings(locals())
