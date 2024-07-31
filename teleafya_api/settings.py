@@ -88,8 +88,18 @@ WSGI_APPLICATION = 'teleafya_api.wsgi.application'
 
 # Database
 DATABASES = {
-    'default': dj_database_url.config(default=config('DATABASE_URL'))
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL'),
+        conn_max_age=600,  # Adjust connection pooling timeout as needed
+        ssl_require=False  # Disable SSL for local connections
+    )
 }
+
+# Ensure SSL is disabled for local database connection
+if 'localhost' in config('DATABASE_URL'):
+    DATABASES['default']['OPTIONS'] = {
+        'sslmode': 'disable'
+    }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
