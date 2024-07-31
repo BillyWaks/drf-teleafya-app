@@ -25,7 +25,7 @@ DEBUG = env('DEBUG')
 SECRET_KEY = env('SECRET_KEY')
 
 # Allowed hosts
-ALLOWED_HOSTS = ['your-heroku-app.herokuapp.com']
+ALLOWED_HOSTS = ['djangorestteleafya.herokuapp.com']
 
 # Custom user model
 AUTH_USER_MODEL = "authentication.User"
