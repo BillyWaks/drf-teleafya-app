@@ -6,7 +6,11 @@ import django_heroku
 import dj_database_url
 from decouple import config
 
-
+def check_env(environmental_variable):
+    if environmental_variable in os.environ:
+        return environmental_variable
+    else:
+        return ""
 # Initialize environment variables
 env = environ.Env(
     DEBUG=(bool, False)
@@ -97,9 +101,55 @@ TEMPLATES = [
 WSGI_APPLICATION = 'teleafya_api.wsgi.application'
 
 # Database configuration
-DATABASES = {
-    'default': dj_database_url.config(default=config('DATABASE_URL'))
-}
+# DATABASES = {
+#     'default': dj_database_url.config(default=config('DATABASE_URL'))
+# }
+
+
+# Retrieve the DATABASE_URL from environment variables
+DB_URL = env('DATABASE_URL')
+
+DATABASES = {}
+
+DB_URL = str(os.getenv('DATABASE_URL'))
+
+if DB_URL != 'None':
+    DATABASES = {'default': dj_database_url.config(env="DATABASE_URL", default=DB_URL, conn_max_age=600)}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'teleafya',
+            'USER': 'postgres',
+            'PASSWORD': env('PASSWORD'),
+            'HOST': 'localhost',
+            'PORT': '5432',
+        },
+    }
+print(DB_URL)
+print(DATABASES)
+
+
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=check_env("FIRST_DB") or check_env("THIRD_DB"),
+#         conn_max_age=600
+#     )
+# }
+
+
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'teleafya',
+#         'USER': 'postgres',
+#         'PASSWORD': env('PASSWORD'),
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -168,4 +218,4 @@ LOGGING = {
 }
 
 # Heroku settings
-django_heroku.settings(locals())
+django_heroku.settings(locals(), databases=False)
