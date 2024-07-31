@@ -6,7 +6,11 @@ import django_heroku
 import dj_database_url
 from decouple import config
 
-
+def check_env(environmental_variable):
+    if environmental_variable in os.environ:
+        return environmental_variable
+    else:
+        return ""
 # Initialize environment variables
 env = environ.Env(
     DEBUG=(bool, False)
@@ -25,7 +29,7 @@ DEBUG = env('DEBUG')
 SECRET_KEY = env('SECRET_KEY')
 
 # Allowed hosts
-ALLOWED_HOSTS = ['your-heroku-app.herokuapp.com']
+ALLOWED_HOSTS = ['djangorestteleafya.herokuapp.com']
 
 # Custom user model
 AUTH_USER_MODEL = "authentication.User"
@@ -97,8 +101,54 @@ TEMPLATES = [
 WSGI_APPLICATION = 'teleafya_api.wsgi.application'
 
 # Database configuration
+# DATABASES = {
+#     'default': dj_database_url.config(default=config('DATABASE_URL'))
+# }
+
+
+# Retrieve the DATABASE_URL from environment variables
+# DB_URL = env('DATABASE_URL')
+
+# DATABASES = {}
+
+# DB_URL = str(os.getenv('DATABASE_URL'))
+
+# if DB_URL != 'None':
+#     DATABASES = {'default': dj_database_url.config(env="DATABASE_URL", default=DB_URL, conn_max_age=600)}
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': 'teleafya',
+#             'USER': 'postgres',
+#             'PASSWORD': env('PASSWORD'),
+#             'HOST': 'localhost',
+#             'PORT': '5432',
+#         },
+#     }
+# print(DB_URL)
+# print(DATABASES)
+
+
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=check_env("FIRST_DB") or check_env("THIRD_DB"),
+#         conn_max_age=600
+#     )
+# }
+
+
+
+
 DATABASES = {
-    'default': dj_database_url.config(default=config('DATABASE_URL'))
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ddie988ljc9ptp',
+        'USER': 'u599b1vinddp3u',
+        'PASSWORD': 'pfd7b473af78a91ca88e513af39f01e720d2317dfdd057a1a56bd327de50f8858',
+        'HOST': 'ce0lkuo944ch99.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com',
+        'PORT': '5432',
+    }
 }
 
 # Password validation
@@ -137,7 +187,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 # Static files
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default auto field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -168,4 +219,5 @@ LOGGING = {
 }
 
 # Heroku settings
+# django_heroku.settings(locals(), databases=False)
 django_heroku.settings(locals())
