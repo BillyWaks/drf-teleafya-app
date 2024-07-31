@@ -21,6 +21,7 @@ env = environ.Env(
 import datetime
 # Configure Django App for Heroku.
 import django_heroku
+import dj_database_url
 from decouple import config
 # import myEnvVal
 # myEnvVal.setVar()
@@ -126,13 +127,13 @@ WSGI_APPLICATION = 'teleafya_api.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': { 
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'teleafya',
-        'USER': 'postgres',
-        'PASSWORD': env('PASSWORD'),
-        'HOST': 'localhost',
-        'PORT': '5433',
+    'default': { dj_database_url.config(default=config('DATABASE_URL'))
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'teleafya',
+        # 'USER': 'postgres',
+        # 'PASSWORD': env('PASSWORD'),
+        # 'HOST': 'localhost',
+        # 'PORT': '5433',
     }
 }
 
