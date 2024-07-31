@@ -6,6 +6,7 @@ import django_heroku
 import dj_database_url
 from decouple import config
 
+
 # Initialize environment variables
 env = environ.Env(
     DEBUG=(bool, False)
@@ -107,8 +108,8 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
-
 # REST framework settings
+
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 5,
