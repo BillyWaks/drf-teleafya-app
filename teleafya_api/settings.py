@@ -29,7 +29,7 @@ DEBUG = env('DEBUG')
 SECRET_KEY = env('SECRET_KEY')
 
 # Allowed hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['djangorestteleafya.herokuapp.com']
 
 # Custom user model
 AUTH_USER_MODEL = "authentication.User"
@@ -107,27 +107,27 @@ WSGI_APPLICATION = 'teleafya_api.wsgi.application'
 
 
 # Retrieve the DATABASE_URL from environment variables
-DB_URL = env('DATABASE_URL')
+# DB_URL = env('DATABASE_URL')
 
-DATABASES = {}
+# DATABASES = {}
 
-DB_URL = str(os.getenv('DATABASE_URL'))
+# DB_URL = str(os.getenv('DATABASE_URL'))
 
-if DB_URL != 'None':
-    DATABASES = {'default': dj_database_url.config(env="DATABASE_URL", default=DB_URL, conn_max_age=600)}
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'teleafya',
-            'USER': 'postgres',
-            'PASSWORD': env('PASSWORD'),
-            'HOST': 'localhost',
-            'PORT': '5432',
-        },
-    }
-print(DB_URL)
-print(DATABASES)
+# if DB_URL != 'None':
+#     DATABASES = {'default': dj_database_url.config(env="DATABASE_URL", default=DB_URL, conn_max_age=600)}
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': 'teleafya',
+#             'USER': 'postgres',
+#             'PASSWORD': env('PASSWORD'),
+#             'HOST': 'localhost',
+#             'PORT': '5432',
+#         },
+#     }
+# print(DB_URL)
+# print(DATABASES)
 
 
 # DATABASES = {
@@ -140,16 +140,16 @@ print(DATABASES)
 
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'teleafya',
-#         'USER': 'postgres',
-#         'PASSWORD': env('PASSWORD'),
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ddie988ljc9ptp',
+        'USER': 'u599b1vinddp3u',
+        'PASSWORD': 'pfd7b473af78a91ca88e513af39f01e720d2317dfdd057a1a56bd327de50f8858',
+        'HOST': 'ce0lkuo944ch99.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -187,7 +187,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 # Static files
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default auto field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -218,4 +219,5 @@ LOGGING = {
 }
 
 # Heroku settings
-django_heroku.settings(locals(), databases=False)
+# django_heroku.settings(locals(), databases=False)
+django_heroku.settings(locals())
